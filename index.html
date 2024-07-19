@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>뽑기 강화 게임</title>
+  <link rel="shortcut icon" href="https://ifh.cc/g/V1dY2n.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Jua", sans-serif;
+      font-style: normal;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f0f0f0;
+    }
+
+    button {
+      transition: background-color 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+      border-radius: 20px;
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-family: "Jua", sans-serif;
+      cursor: pointer;
+      padding: 10px 20px;
+    }
+
+    .start_button, .action_button {
+      width: 120px;
+      height: 50px;
+      background: linear-gradient(150deg, #E77265, #FFBC9C);
+      display: inline-block;
+      margin: 10px;
+    }
+
+    .start_button:hover, .action_button:hover {
+      filter: brightness(1.2);
+      transform: scale(1.05);
+    }
+
+    .container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 70%;
+      max-width: 600px;
+      height: auto;
+      background-color: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .active {
+      display: flex;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 10px 0;
+    }
+
+    hr {
+      width: 70%;
+      border: none;
+      height: 1px;
+      background: #B5B5B5;
+      margin: 20px 0;
+    }
+
+    h3 span, h4 span {
+      color: red;
+    }
+
+    .ticket {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: transform 0.5s ease, filter 0.5s ease, box-shadow 0.5s ease;
+      transform: rotate(45deg);
+      width: 120px;
+      height: 70px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 30px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      border: 6px solid rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      font-family: 'Jua', sans-serif;
+    }
+
+
+    .ticket:before {
+      content: ''; 
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      background: url('icon.png') no-repeat center center;
+      background-size: contain;
+    }
+
+    .ticket .level-text {
+      font-size: 20px;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .button_container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .result_container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 70%;
+      max-width: 600px;
+      height: auto;
+      background-color: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .result_container h2 {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div style = "position: absolute; top: 10px; right: 10px;">@ 개발자 : 동아리회장</div>
+  <div id="container1" class="container active">
+    <h2>뽑기 강화 게임</h2>
+    <hr>
+    <h3>시간제한내에 최대한 높은 능급의 보상을 받아보세요!</h3>
+    <h3><span>10초</span> 이내에 보상의 등급을 올리거나 보상 등급을 결정해보세요!</h3>
+    <h3>시간제한이 끝나면 자동으로 선택됩니다.</h3>
+    <h3>강화를 성공하면 레벨이 올라가고, 실패하면 레벨이 1로 돌아갑니다!</h3>
+    <hr>
+    <button class="start_button" onclick="startGame();">시작!</button>
+  </div>
+
+  <div id="container2" class="container">
+    <h2 id="level_title">티켓 LV#1</h2>
+    <hr>
+    <div class="ticket" id="ticket">
+      <div class="level-text">•LV.1•</div>
+    </div>
+    <hr>
+    <h4>▶강화확률 : <span id="per">100%</span>◀</h4>
+    <h3><span id="sec" style="color: gray;">10초</span> 이내에 보상의 등급을 올리거나 보상 등급을 결정해보세요!</h3>
+    <div style="border-radius: 20px; border: 1.5px solid black; width: 450px;">
+      <h4>강화를 성공하면 성공확률이 <span style="color: #45DD93;">60%</span>가 됩니다.</h4>
+      <h4>강화를 실패하면 성공확률이 <span>90%</span>가 됩니다.</h4>
+    </div>
+    <div class="button_container">
+      <button class="action_button" onclick="decide();" id="decide_button" style="background: linear-gradient(150deg, #FF6F78, #F8B4B8);">결정!</button>
+      <button class="action_button" onclick="strengthen();" id="strengthen_button">강화!</button>
+    </div>
+  </div>
+
+  <div id="container3" class="container">
+    <h2>게임 결과</h2>
+    <hr>
+    <div class="ticket" id="result_ticket">
+      <div class="level-text">LV.1</div>
+    </div>
+    <hr>
+    <h4>강화 확률: <span id="result_per">100%</span></h4>
+    <h4>최종 레벨: <span id="result_level">LV#1</span></h4>
+  </div>
+
+  <script>
+    let per = 100;
+    const perob = document.getElementById("per");
+    let sec = 11;
+    const secob = document.getElementById("sec");
+    const decideButton = document.getElementById("decide_button");
+    const strengthenButton = document.getElementById("strengthen_button");
+    const ticket = document.getElementById("ticket");
+    const levelob = document.getElementById("level_title");
+    const resultTicket = document.getElementById("result_ticket");
+    const resultPer = document.getElementById("result_per");
+    const resultLevel = document.getElementById("result_level");
+    let level = 1;
+    let timerStarted = false;
+
+    function startGame() {
+      move(2);
+      setTicketDesign(ticket);
+      if (!timerStarted) {
+        timerStarted = true;
+        updateTimer();
+      }
+    }
+
+    function move(nextNum) {
+      document.querySelectorAll('.container').forEach(container => {
+        container.classList.remove('active');
+      });
+
+      const nextContainer = document.querySelector(`#container${nextNum}`);
+      if (nextContainer) {
+        nextContainer.classList.add('active');
+      }
+    }
+
+    function updateTimer() {
+      if (sec > 0) {
+        sec -= 1;
+        secob.innerHTML = sec + "초";
+        setTimeout(updateTimer, 1000);
+      } else {
+        disableButtons();
+        showResult();
+      }
+    }
+
+    function setTicketDesign(ticket) {
+      switch (level) {
+        case 1:
+          ticket.style.background = 'linear-gradient(150deg, #E57373, #FF8A65)'; // Red-Pink
+          break;
+        case 2:
+          ticket.style.background = 'linear-gradient(150deg, #FF8A65, #FFD54F)'; // Orange-Yellow
+          break;
+        case 3:
+          ticket.style.background = 'linear-gradient(150deg, #FFD54F, #4FC3F7)'; // Yellow-Light Blue
+          break;
+        case 4:
+          ticket.style.background = 'linear-gradient(150deg, #4FC3F7, #81C784)'; // Light Blue-Green
+          break;
+        case 5:
+          ticket.style.background = 'linear-gradient(150deg, #81C784, #BA68C8)'; // Green-Purple
+          break;
+        case 6:
+          ticket.style.background = 'linear-gradient(150deg, #BA68C8, #7986CB)'; // Purple-Blue
+          break;
+        case 7:
+          ticket.style.background = 'linear-gradient(150deg, #7986CB, #FFB74D)'; // Blue-Orange
+          break;
+        case 8:
+          ticket.style.background = 'linear-gradient(150deg, #FFB74D, #FF8A65)'; // Orange-Pink
+          break;
+        case 9:
+          ticket.style.background = 'linear-gradient(150deg, #4FC3F7, #4DD0E1)'; // Light Blue-Teal
+          break;
+        case 10:
+          ticket.style.background = 'linear-gradient(150deg, #AB47BC, #FF7043)'; // Purple-Red
+          break;
+        default:
+          ticket.style.background = 'linear-gradient(150deg, #E57373, #FF8A65)'; // Default Red-Pink
+          break;
+      }
+    }
+
+    function disableButtons() {
+      decideButton.classList.add('disabled');
+      strengthenButton.classList.add('disabled');
+      decideButton.disabled = true;
+      strengthenButton.disabled = true;
+    }
+
+    function decide() {
+      if (sec <= 0) {
+        showResult();
+      } else {
+        showResult();
+      }
+    }
+
+    function strengthen() {
+      if (sec > 0) {
+        const successChance = per;
+        const random = Math.random() * 100;
+
+        if (random < successChance) {
+          per = per * 0.6;
+          level += 1;
+          setdisplay();
+          showSuccessEffect();
+        } else {
+          per = per * 0.9;
+          showFailureEffect();
+          level = 1;
+          setdisplay();
+        }
+        setTicketDesign(ticket);
+        sec = 11;
+      }
+    }
+
+    function setdisplay() {
+      levelob.innerHTML = `타켓 LV#${level}`;
+      ticket.innerHTML = `<div class="level-text">•LV.${level}•</div>`;
+      perob.innerHTML = per.toFixed(1) + "%";
+    }
+
+    function showResult() {
+      setTicketDesign(resultTicket);
+      resultTicket.innerHTML = `<div class="level-text">•LV.${level}•</div>`;
+      resultPer.innerHTML = per.toFixed(1) + "%";
+      resultLevel.innerHTML = `LV#${level}`;
+      move(3);
+    }
+
+    function showSuccessEffect() {
+      document.body.style.transition = 'background-color 0.5s ease';
+      ticket.style.transition = 'filter 0.5s ease';
+      document.body.style.backgroundColor = '#73E9B0';
+      ticket.style.filter = 'brightness(1.5)';
+      setTimeout(() => {
+        document.body.style.backgroundColor = '#f0f0f0';
+        ticket.style.filter = 'none';
+      }, 500);
+    }
+
+    function showFailureEffect() {
+      document.body.style.transition = 'background-color 0.5s ease';
+      ticket.style.transition = 'filter 0.5s ease';
+      document.body.style.backgroundColor = '#FF666B';
+      ticket.style.filter = 'brightness(0.5)';
+      setTimeout(() => {
+        document.body.style.backgroundColor = '#f0f0f0';
+        ticket.style.filter = 'none';
+      }, 500);
+    }
+  </script>
+</body>
+</html>
