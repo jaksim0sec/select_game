@@ -9,6 +9,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <style>
+    .particle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 1;
+        transition: opacity 1s linear;
+    }
+
+    @keyframes explosion {
+        0% {
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(var(--offsetX), var(--offsetY)) scale(0.5);
+            opacity: 0;
+        }
+    }
+    
     body {
       font-family: "Jua", sans-serif;
       font-style: normal;
@@ -21,22 +40,19 @@
     }
 
     button {
-      transition: background-color 0.5s ease, transform 0.5s ease, filter 0.5s ease;
-      border-radius: 20px;
+      border-radius: 25px;
       border: none;
       color: white;
-      font-size: 16px;
+      font-size: 18px;
       font-family: "Jua", sans-serif;
       cursor: pointer;
-      padding: 10px 20px;
+      padding: 12px 24px;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     .start_button, .action_button {
-      width: 120px;
-      height: 50px;
       background: linear-gradient(150deg, #E77265, #FFBC9C);
-      display: inline-block;
-      margin: 10px;
     }
 
     .start_button:hover, .action_button:hover {
@@ -50,13 +66,14 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      width: 70%;
+      width: 80%;
       max-width: 600px;
       height: auto;
-      background-color: white;
+      background-color: #ffffff;
       border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
     }
 
     .active {
@@ -65,13 +82,14 @@
 
     h1, h2, h3, h4, h5, h6 {
       margin: 10px 0;
+      color: #333;
     }
 
     hr {
-      width: 70%;
+      width: 80%;
       border: none;
       height: 1px;
-      background: #B5B5B5;
+      background: #ddd;
       margin: 20px 0;
     }
 
@@ -80,20 +98,19 @@
     }
 
     .ticket {
-      filter: brightness(1.1);
       align-items: center;
       justify-content: center;
       text-align: center;
       transition: transform 0.5s ease, filter 0.5s ease, box-shadow 0.5s ease;
       transform: rotate(45deg);
-      width: 120px;
-      height: 70px;
+      width: 150px;
+      height: 85px;
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 30px;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
       border-radius: 15px;
       border: 6px solid rgba(0, 0, 0, 0.1);
       position: relative;
@@ -101,27 +118,26 @@
       font-family: 'Jua', sans-serif;
     }
 
-
     .ticket:before {
       content: ''; 
       position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 30px;
-      height: 30px;
+      top: 15px;
+      right: 15px;
+      width: 35px;
+      height: 35px;
       background: url('icon.png') no-repeat center center;
       background-size: contain;
     }
 
     .ticket .level-text {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
 
     .button_container {
       display: flex;
-      gap: 10px;
+      gap: 15px;
     }
 
     .disabled {
@@ -135,27 +151,29 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      width: 70%;
+      width: 80%;
       max-width: 600px;
       height: auto;
-      background-color: white;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-color: #ffffff;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
     }
 
     .result_container h2 {
       margin: 20px 0;
+      color: #333;
     }
   </style>
 </head>
 
 <body>
-  <div style = "position: absolute; top: 10px; right: 10px;">@ 개발자 : 동아리회장</div>
+  <div style="position: absolute; top: 10px; right: 10px;font-size: 18px;">@ 개발자 : 동아리회장</div>
   <div id="container1" class="container active">
-    <h2>뽑기 강화 게임</h2>
+    <h2>[ 뽑기 강화 게임 ]</h2>
     <hr>
-    <h3>현명한 선택으로 최대한 높은 능급의 보상을 받아보세요!</h3>
+    <h3>시간제한내에 최대한 높은 능급의 보상을 받아보세요!</h3>
     <h3><span>10초</span> 이내에 보상의 등급을 올리거나 보상 등급을 결정해보세요!</h3>
     <h3>시간제한이 끝나면 자동으로 선택됩니다.</h3>
     <h3>강화를 성공하면 레벨이 올라가고, 실패하면 레벨이 1로 돌아갑니다!</h3>
@@ -172,10 +190,11 @@
     <hr>
     <h4>▶강화확률 : <span id="per">100%</span>◀</h4>
     <h3><span id="sec" style="color: gray;">10초</span> 이내에 보상의 등급을 올리거나 보상 등급을 결정해보세요!</h3>
-    <div style="border-radius: 20px; border: 1.5px solid black; width: 90%;">
+    <div style="border-radius: 20px; border: 1.5px solid black; width: 450px;">
       <h4>강화를 성공하면 성공확률이 <span style="color: #45DD93;">70%</span>가 됩니다.</h4>
       <h4>강화를 실패하면 성공확률이 <span>90%</span>가 됩니다.</h4>
     </div>
+    <div style="height: 12px;"></div>
     <div class="button_container">
       <button class="action_button" onclick="decide();" id="decide_button" style="background: linear-gradient(150deg, #FF6F78, #F8B4B8);">결정!</button>
       <button class="action_button" onclick="strengthen();" id="strengthen_button">강화!</button>
@@ -194,6 +213,49 @@
   </div>
 
   <script>
+    function createFirework(x, y) {
+        const colors = ['#ff0044', '#ff6600', '#ffcc00', '#33cc33', '#3399ff'];
+        const numParticles = 50;
+        const explosionRadius = 150;
+
+        const fireworkContainer = document.createElement('div');
+        fireworkContainer.style.position = 'absolute';
+        fireworkContainer.style.top = 0;
+        fireworkContainer.style.left = 0;
+        document.body.appendChild(fireworkContainer);
+
+        for (let i = 0; i < numParticles; i++) {
+            const particle = document.createElement('div');
+            const size = Math.random() * 10 + 5;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            const angle = Math.random() * 2 * Math.PI;
+            const distance = Math.random() * explosionRadius;
+            const offsetX = distance * Math.cos(angle);
+            const offsetY = distance * Math.sin(angle);
+
+            particle.className = 'particle';
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.backgroundColor = color;
+            particle.style.left = `${x - size / 2}px`;
+            particle.style.top = `${y - size / 2}px`;
+            particle.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            particle.style.setProperty('--offsetX', `${offsetX}px`);
+            particle.style.setProperty('--offsetY', `${offsetY}px`);
+            particle.style.animation = 'explosion 1s forwards';
+
+            fireworkContainer.appendChild(particle);
+
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+                if (fireworkContainer.children.length === 0) {
+                    fireworkContainer.remove();
+                }
+            });
+        }
+    }
+
     let per = 100;
     const perob = document.getElementById("per");
     let sec = 11;
@@ -209,144 +271,163 @@
     let timerStarted = false;
 
     function startGame() {
-      move(2);
-      setTicketDesign(ticket);
-      if (!timerStarted) {
-        timerStarted = true;
-        updateTimer();
-      }
+        move(2);
+        setTicketDesign(ticket);
+        if (!timerStarted) {
+            timerStarted = true;
+            updateTimer();
+        }
     }
 
     function move(nextNum) {
-      document.querySelectorAll('.container').forEach(container => {
-        container.classList.remove('active');
-      });
+        document.querySelectorAll('.container').forEach(container => {
+            container.classList.remove('active');
+        });
 
-      const nextContainer = document.querySelector(`#container${nextNum}`);
-      if (nextContainer) {
-        nextContainer.classList.add('active');
-      }
+        const nextContainer = document.querySelector(`#container${nextNum}`);
+        if (nextContainer) {
+            nextContainer.classList.add('active');
+        }
     }
 
     function updateTimer() {
-      if (sec > 0) {
-        sec -= 1;
-        secob.innerHTML = sec + "초";
-        setTimeout(updateTimer, 1000);
-      } else {
-        disableButtons();
-        showResult();
-      }
+        if (sec > 0) {
+            sec -= 1;
+            secob.innerHTML = sec + "초";
+            setTimeout(updateTimer, 1000);
+        } else {
+            disableButtons();
+            showResult();
+        }
     }
 
     function setTicketDesign(ticket) {
-      switch (level) {
-        case 1:
-          ticket.style.background = 'linear-gradient(150deg, #E57373, #FF8A65)'; // Red-Pink
-          break;
-        case 2:
-          ticket.style.background = 'linear-gradient(150deg, #FF8A65, #FFD54F)'; // Orange-Yellow
-          break;
-        case 3:
-          ticket.style.background = 'linear-gradient(150deg, #FFD54F, #4FC3F7)'; // Yellow-Light Blue
-          break;
-        case 4:
-          ticket.style.background = 'linear-gradient(150deg, #4FC3F7, #81C784)'; // Light Blue-Green
-          break;
-        case 5:
-          ticket.style.background = 'linear-gradient(150deg, #81C784, #BA68C8)'; // Green-Purple
-          break;
-        case 6:
-          ticket.style.background = 'linear-gradient(150deg, #BA68C8, #7986CB)'; // Purple-Blue
-          break;
-        case 7:
-          ticket.style.background = 'linear-gradient(150deg, #7986CB, #FFB74D)'; // Blue-Orange
-          break;
-        case 8:
-          ticket.style.background = 'linear-gradient(150deg, #FFB74D, #FF8A65)'; // Orange-Pink
-          break;
-        case 9:
-          ticket.style.background = 'linear-gradient(150deg, #4FC3F7, #4DD0E1)'; // Light Blue-Teal
-          break;
-        case 10:
-          ticket.style.background = 'linear-gradient(150deg, #AB47BC, #FF7043)'; // Purple-Red
-          break;
-        default:
-          ticket.style.background = 'linear-gradient(150deg, #E57373, #FF8A65)'; // Default Red-Pink
-          break;
-      }
+        switch (level) {
+            case 1:
+                ticket.style.background = 'linear-gradient(150deg, #C4C4C4, #696969, #878787)';
+                break;
+            case 2:
+                ticket.style.background = 'linear-gradient(150deg, #FF8A65, #FFD54F)';
+                break;
+            case 3:
+                ticket.style.background = 'linear-gradient(150deg, #FFD54F, #4FC3F7)';
+                break;
+            case 4:
+                ticket.style.background = 'linear-gradient(150deg, #4FC3F7, #81C784)';
+                break;
+            case 5:
+                ticket.style.background = 'linear-gradient(150deg, #81C784, #BA68C8)';
+                break;
+            case 6:
+                ticket.style.background = 'linear-gradient(150deg, #BA68C8, #7986CB)';
+                break;
+            case 7:
+                ticket.style.background = 'linear-gradient(150deg, #7986CB, #FFB74D)';
+                break;
+            case 8:
+                ticket.style.background = 'linear-gradient(150deg, #FFB74D, #FF8A65)';
+                break;
+            case 9:
+                ticket.style.background = 'linear-gradient(150deg, #4FC3F7, #4DD0E1)';
+                break;
+            case 10:
+                ticket.style.background = 'linear-gradient(150deg, #AB47BC, #FF7043)';
+                break;
+            default:
+                ticket.style.background = 'linear-gradient(150deg, #E57373, #FF8A65)';
+                break;
+        }
     }
 
     function disableButtons() {
-      decideButton.classList.add('disabled');
-      strengthenButton.classList.add('disabled');
-      decideButton.disabled = true;
-      strengthenButton.disabled = true;
+        decideButton.classList.add('disabled');
+        strengthenButton.classList.add('disabled');
+        decideButton.disabled = true;
+        strengthenButton.disabled = true;
     }
 
     function decide() {
-      if (sec <= 0) {
-        showResult();
-      } else {
-        showResult();
-      }
+        if (sec <= 0) {
+            showResult();
+        } else {
+            showResult();
+        }
     }
 
     function strengthen() {
-      if (sec > 0) {
-        const successChance = per;
-        const random = Math.random() * 100;
+        if (sec > 0) {
+            const successChance = per;
+            const random = Math.random() * 100;
 
-        if (random < successChance) {
-          per = per * 0.7;
-          level += 1;
-          setdisplay();
-          showSuccessEffect();
-        } else {
-          per = per * 0.9;
-          showFailureEffect();
-          level = 1;
-          setdisplay();
+            if (random < successChance) {
+                per = per * 0.7;
+                level += 1;
+                setdisplay();
+                showSuccessEffect();
+            } else {
+                per = per * 0.9;
+                showFailureEffect();
+                level = 1;
+                setdisplay();
+            }
+            setTicketDesign(ticket);
+            sec = 11;
         }
-        setTicketDesign(ticket);
-        sec = 11;
-      }
     }
 
     function setdisplay() {
-      levelob.innerHTML = `타켓 LV#${level}`;
-      ticket.innerHTML = `<div class="level-text">•LV.${level}•</div>`;
-      perob.innerHTML = per.toFixed(1) + "%";
+        levelob.innerHTML = `타켓 LV#${level}`;
+        ticket.innerHTML = `<div class="level-text">•LV.${level}•</div>`;
+        perob.innerHTML = per.toFixed(1) + "%";
     }
 
-    function showResult() {
-      setTicketDesign(resultTicket);
-      resultTicket.innerHTML = `<div class="level-text">•LV.${level}•</div>`;
-      resultPer.innerHTML = per.toFixed(1) + "%";
-      resultLevel.innerHTML = `LV#${level}`;
-      move(3);
+    function wait(milliseconds) {
+        return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
 
-    function showSuccessEffect() {
-      document.body.style.transition = 'background-color 0.5s ease';
-      ticket.style.transition = 'filter 0.5s ease';
-      document.body.style.backgroundColor = '#73E9B0';
-      ticket.style.filter = 'brightness(1.5)';
-      setTimeout(() => {
+    async function showResult() {
+        setTicketDesign(resultTicket);
+        resultTicket.innerHTML = `<div class="level-text">•LV.${level}•</div>`;
+        resultPer.innerHTML = per.toFixed(1) + "%";
+        resultLevel.innerHTML = `LV#${level}`;
+        move(3);
+
+        for (let i = 0; i < 5; i++) {
+            let exX = Math.floor(Math.random() * window.innerWidth);
+            let exY = Math.floor(Math.random() * window.innerHeight);
+            createFirework(exX, exY);
+            await wait(200);
+        }
+    }
+
+    async function showSuccessEffect() {
+        document.body.style.transition = 'background-color 0.5s ease';
+        ticket.style.transition = 'filter 0.5s ease';
+        document.body.style.backgroundColor = '#73E9B0';
+        ticket.style.filter = 'brightness(1.5)';
+        await wait(300);
         document.body.style.backgroundColor = '#f0f0f0';
-        ticket.style.filter = 'brightness(1.1)';
-      }, 500);
+        ticket.style.filter = 'none';
+
+        createFirework(mouse.x, mouse.y);
     }
 
+    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+    document.addEventListener('click', (event) => {
+        mouse.x = event.clientX;
+        mouse.y = event.clientY;
+    });
+    
     function showFailureEffect() {
-      document.body.style.transition = 'background-color 0.5s ease';
-      ticket.style.transition = 'filter 0.5s ease';
-      document.body.style.backgroundColor = '#FF666B';
-      ticket.style.filter = 'brightness(0.5)';
-      setTimeout(() => {
-        document.body.style.backgroundColor = '#f0f0f0';
-        ticket.style.filter = 'brightness(1.1)';
-      }, 500);
+        document.body.style.transition = 'background-color 0.5s ease';
+        ticket.style.transition = 'filter 0.5s ease';
+        document.body.style.backgroundColor = '#FF666B';
+        ticket.style.filter = 'brightness(0.5)';
+        setTimeout(() => {
+            document.body.style.backgroundColor = '#f0f0f0';
+            ticket.style.filter = 'none';
+        }, 500);
     }
   </script>
 </body>
