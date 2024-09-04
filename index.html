@@ -207,7 +207,7 @@
       filter: contrast(1.5) brightness(1.2);
     }
 
-    textarea {
+    input {
         width: calc(100% - 20px);
         width:300px;
       height: 18px;
@@ -220,7 +220,7 @@
       margin: 10px;
     }
 
-    textarea:focus {
+    input:focus {
         border: 1px solid #FFCF96;
         border-radius: 20px;
         transform: translateY(-2px) scale(1.03);
@@ -229,7 +229,7 @@
         outline: none;
     }
 
-    textarea:hover:not(:focus)
+    input:hover:not(:focus)
     {
         border-color:black
     }
@@ -289,7 +289,7 @@
     <h3>시간제한이 끝나면 자동으로 선택됩니다.</h3>
     <h3>강화를 성공하면 레벨이 올라가고, 실패하면 레벨이 1로 돌아갑니다!</h3>
     <hr>
-    <textarea placeholder="학번을 입력해주세요!"></textarea>
+    <input type ="number" placeholder="학번을 입력해주세요!"></input>
     <button class="start_button" onclick="startGame();" style = "width:320px; border-radius:10px;">게임 시작!</button>
 
     <span style = "font-size:13px; margin-top:15px;" id = "gameTypeInfo">잠깐! 혹시 처음이거나 연습게임을 하고 싶으신가요?🤔</span>
