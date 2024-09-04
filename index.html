@@ -239,6 +239,16 @@
       transform: scale(1.1);
     }
     #gameType:active{transform: scale(0.9);}
+    input[type="number"] {
+        -moz-appearance: textfield; /* Firefox에서 숫자 조정 버튼 제거 */
+        appearance: textfield; /* Chrome, Safari 등에서 숫자 조정 버튼 제거 */
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none; /* Chrome, Safari에서 숫자 조정 버튼 제거 */
+        margin: 0; /* 버튼이 없어진 후 여백 제거 */
+    }/*출처:블로그*/
   </style>
 </head>
 
@@ -289,7 +299,7 @@
     <h3>시간제한이 끝나면 자동으로 선택됩니다.</h3>
     <h3>강화를 성공하면 레벨이 올라가고, 실패하면 레벨이 1로 돌아갑니다!</h3>
     <hr>
-    <input type ="number" placeholder="학번을 입력해주세요!"></input>
+    <input type ="number" placeholder="학번을 입력해주세요!" maxlength="5"></input>
     <button class="start_button" onclick="startGame();" style = "width:320px; border-radius:10px;">게임 시작!</button>
 
     <span style = "font-size:13px; margin-top:15px;" id = "gameTypeInfo">잠깐! 혹시 처음이거나 연습게임을 하고 싶으신가요?🤔</span>
