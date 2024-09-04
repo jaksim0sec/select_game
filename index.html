@@ -300,7 +300,7 @@
   </div>
 
   <div id="container2" class="container">
-    <h2 id="level_title">티켓 LV#1</h2>
+    <h2 id="level_title">티켓 레벨#1</h2>
       <div style="border-radius: 20px;
         width: 450px;
         box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2); /* 그림자를 좀 더 부드럽고 현대적으로 */
@@ -311,7 +311,7 @@
         align-items: center; /* 중앙 정렬 */">
       <!-- HTML -->
       <div class="ticket" id="ticket">
-        <div class="level-text" id="ticket-level-text">•LV.1•</div>
+        <div class="level-text" id="ticket-level-text">•레벨1•</div>
       </div>
 
     </div>
@@ -339,11 +339,11 @@
         justify-content: center; /* 중앙 정렬 */
         align-items: center; /* 중앙 정렬 */">
     <div class="ticket" id="result_ticket">
-      <div class="level-text">LV.1</div>
+      <div class="level-text">레벨1</div>
     </div>
     </div>
     <h4>강화 확률: <span id="result_per" style = "color: #FF7755;">100%</span></h4>
-    <h4>최종 레벨: <span id="result_level" style = "color: #FF7755;">LV#1</span></h4>
+    <h4>최종 레벨: <span id="result_level" style = "color: #FF7755;">레벨#1</span></h4>
   </div>
     </div>
   <script>
@@ -511,11 +511,11 @@
     }
 
     function setdisplay() {
-        levelob.innerHTML = `티켓 LV#${level}`;
+        levelob.innerHTML = `티켓 레벨#${level}`;
 
         // 티켓의 레벨 텍스트를 직접 변경
         const ticketLevelText = document.getElementById("ticket-level-text");
-        ticketLevelText.textContent = `•LV.${level}•`;
+        ticketLevelText.textContent = `•레벨${level}•`;
 
         // 확률 업데이트
         perob.innerHTML = per.toFixed(1) + "%";
@@ -523,15 +523,15 @@
 
 
     function wait(milliseconds) {
-        return new Promise(resolve => setTimeout(resolve, milliseconds));
+        return new Promise(reso레벨e => setTimeout(reso레벨e, milliseconds));
     }
 
     async function showResult() {
         setTicketDesign(resultTicket);
       if(gameType=="real"){gameType=""}
-        resultTicket.innerHTML = `<div class="level-text">•LV.${gameType}-${level}•</div>`;
+        resultTicket.innerHTML = `<div class="level-text">•${gameType}레벨${level}•</div>`;
         resultPer.innerHTML = per.toFixed(1) + "%";
-        resultLevel.innerHTML = `LV#${level}`;
+        resultLevel.innerHTML = `레벨#${level}`;
         move(3);
 
         for (let i = 0; i < 5; i++) {
