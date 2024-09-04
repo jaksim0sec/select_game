@@ -233,7 +233,12 @@
     {
         border-color:black
     }
-
+  #gameType{transition:all 0.3s ease;}
+    #gameType:hover
+    {
+      transform: scale(1.1);
+    }
+    #gameType:active{transform: scale(0.9);}
   </style>
 </head>
 
@@ -273,7 +278,7 @@
     draw();
     //양심선언 -> 파티클, 파도 : GPT 참고
   </script>
-  <div style="position: absolute; top: 10px; right: 10px;font-size: 18px;">@ 개발자 : 동아리회장</div>
+  <div style="position: absolute; top: 10px; right: 10px;font-size: 18px;">@ 개발자 : 샛별코딩동아리회장</div>
   <div style="position: absolute; bottom: 10px; right: 10px;font-size: 15px;">규칙에 어긋나는 행동은 삼가해 주세요. 필요하다면 관리자가 게임 진행 상황을 서버를 통해 확인할 수 있습니다 😉</div>
   <div class = "whole-container">
   <div id="container1" class="container active">
@@ -284,12 +289,12 @@
     <h3>시간제한이 끝나면 자동으로 선택됩니다.</h3>
     <h3>강화를 성공하면 레벨이 올라가고, 실패하면 레벨이 1로 돌아갑니다!</h3>
     <hr>
-    <textarea placeholder="학번/이름을 입력해주세요!"></textarea>
+    <textarea placeholder="학번을 입력해주세요!"></textarea>
     <button class="start_button" onclick="startGame();" style = "width:320px; border-radius:10px;">시작!</button>
 
     <span style = "font-size:14px; margin-top:15px;">혹시 문맹이거나 연습게임을 하고 싶으신가요?</span>
     <span id = "gameType" onclick="
-      if(gameType!=='test'){gameType='test';document.querySelector('.start_button').innerHTML='연습게임 시작!';document.querySelector('#gameType').innerHTML='▶ (되돌리기)';}
+      if(gameType!=='연습'){gameType='연습';document.querySelector('.start_button').innerHTML='연습게임 시작!';document.querySelector('#gameType').innerHTML='▶ (되돌리기)';}
       else{gameType='real';document.querySelector('.start_button').innerHTML='시작!';document.querySelector('#gameType').innerHTML='▶연습게임하기';}
       ">▶연습게임하기</span>
   </div>
@@ -523,7 +528,8 @@
 
     async function showResult() {
         setTicketDesign(resultTicket);
-        resultTicket.innerHTML = `<div class="level-text">•LV.${level}•</div>`;
+      if(gameType=="real"){gameType=""}
+        resultTicket.innerHTML = `<div class="level-text">•LV.${gameType}-${level}•</div>`;
         resultPer.innerHTML = per.toFixed(1) + "%";
         resultLevel.innerHTML = `LV#${level}`;
         move(3);
