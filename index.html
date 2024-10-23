@@ -40,12 +40,12 @@
 
     .particle {
       position: absolute;
-      border-radius: 5px;
+      border-radius: 4px;
       pointer-events: none;
       opacity: 1;
       transition: opacity 0.8s ease;
-      width: 5px;
-      height: 5px;
+      width: 3px;
+      height: 3px;
       background-color: rgba(255, 255, 255, 0.8);
       animation: explosion 1s
         /*cubic-bezier(0.68, -0.55, 0.27, 1.55);*/
@@ -102,10 +102,10 @@
     .action_button {
       background: linear-gradient(150deg, #E77265, #FFBC9C);
     }
-    .start_button:hover{border-radius: 50px;}
+    .start_button:hover{border-radius: 100px;}
     button:hover {
-      filter: brightness(1.1);
-      transform: translateY(-5px);
+      filter: brightness(1.1) contrast(1.5);
+      transform: translateY(-5px) scale(1.05);
       box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
     }
 
@@ -162,15 +162,14 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      transition: all 0.4s ease;
+      transition: all 0.5s ease;
       width: 160px;
       height: 90px;
       color: white;
       background: linear-gradient(135deg, #1E3C72, #2A5298);
-      /* 카드의 세련된 그라디언트 */
-      border-radius: 20px;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      border: 5px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 10px 5px rgba(0, 0, 0, 0.5);
       position: relative;
       overflow: hidden;
       font-family: 'Jua', sans-serif;
@@ -179,7 +178,7 @@
     .ticket:hover {
       filter: brightness(1.1);
       transform: scale(1.1) translateY(-10px);
-      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.4);
     }
 
     .ticket:before {
@@ -243,7 +242,7 @@
       height: 18px;
       border-radius: 10px;
       padding: 10px;
-      border: 1px solid #EAEAEA;
+      border: 2px solid #EAEAEA;
       resize: none;
       transition: all 0.3s ease, color 1s ease;
       min-height: 18px;
@@ -253,10 +252,10 @@
     }
 
     input:focus {
-      border: 1px solid #FFCF96;
+      border: 2px solid #FFC37F;
       border-radius: 20px;
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: inset 0px 0px 10px #FFCF9680, 0px 4px 10px rgba(0, 0, 0, 0.2);
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: inset 0px 3px 10px #FFC37F80, 0px 8px 10px rgba(0, 0, 0, 0.2);
       background-color: white;
       outline: none;
       cursor:url('https://ifh.cc/g/QFffQ9.png') 2 2,auto;
@@ -268,10 +267,13 @@
 
     #gameType {
       transition: all 0.3s ease;
+      padding: 5px;
     }
 
     #gameType:hover {
-      transform: scale(1.1);
+      transform: scale(1.02);
+      border-radius: 20px;
+      background-color: #00000030;
     }
 
     #gameType:active {
@@ -296,6 +298,47 @@
     .alerter{position:absoulte;width:100%;height:100%;background-color:rgba(0,0,0,0.5);justify-content: center;}
     .alerter_bacground{width: 20%;height:300px;background: white;border-radius:20px;}
     .highlight{color: #FF7158;}
+
+    @keyframes shake {
+        0% {
+            transform: rotate(-5deg) translateY(-2px);
+        }
+
+        25% {
+            transform: rotate(10deg) translateY(2px);
+        }
+
+        75% {
+            transform: rotate(-5deg) translateY(-2px);
+        }
+
+        100% {
+            transform: rotate(0deg)translateY(0px);
+        }
+    }
+
+    @keyframes good {
+        0% {
+            transform: translateY(0px);
+        }
+
+        25% {
+            transform: translateY(-2px) scale(1.05); 
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        65% {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        100% {
+            transform: translateY(0px);
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.4);
+        }
+    }
+
+    #per{transition: all 0.3s ease;}
   </style>
 </head>
 
@@ -346,19 +389,20 @@
     서버를 통해 확인할 수 있습니다 😉</div>
   <div class="whole-container">
     <div id="container1" class="container active">
-      <h2>[ 뽑기 강화 게임 ]</h2>
+      <h1>[ 뽑기 강화 게임 ]</h1>
       <hr>
-      <h3>현명한 판단을 하여 최고의 티켓을 받아보세요!</h3>
-      <h3><span class="highlight">10초</span> 이내에 현재 티켓레벨을 선택할지 더 강화를 할지 결정해야합니다!</h3>
-      <h3>시간제한이 끝나면 자동으로 선택되니 조심하세요!</h3>
-      <h3>강화를 성공하면 레벨이 올라가고, 실패하면 레벨이 1로 돌아갑니다!</h3>
-      <h3><spna class = "highlight">무조건 클릭</spna>을 한다고 높은레벨이 되지 않습니다. 조금 여유를 가지고 선택해봐요!</h3>
+      <h3>현명한 선택으로 최고의 티켓을 얻어보세요!</h3>
+      <h3><span class="highlight">10초</span> 안에 현재 티켓을 선택할지, 강화를 시도할지 결정하세요.</h3>
+      <h3>시간이 끝나면 자동으로 선택되니 주의하세요!</h3>
+      <h3>강화에 성공하면 레벨이 올라가고, <span class="highlight">실패하면 레벨 1</span>로 돌아갑니다!</h3>
+      <h3><span class="highlight">무지성 클릭</span>을 한다고 무조건 <span class="highlight">성공하지 않습니다.</span> 여유를 가지고 신중한 선택하세요!</h3>
+
       <hr>
       <input type="number" placeholder="학번을 입력해주세요!"id="userNum"></input>
       <button class="start_button" onclick="
         if(document.querySelector('#userNum').value.length==5){startGame();}else{window.alert('적절한 학번을 입력해주세🥲')}
         " style="width:320px; border-radius:10px;">게임 시작!</button>
-      <div style = "font-size: 10px;margin: 10px;opacity: 0.5;">※실제 자신의 학번을 입력하지 않으면 보상을 받지 못할 수 있습니다.</div>
+      <div style = "font-size: 10px;margin: 10px;opacity: 0.5;">※ 실제 자신의 학번을 입력하지 않으면 보상을 받지 못할 수 있습니다.</div>
       <span style="font-size:13px; margin-top:15px;" id="gameTypeInfo">잠깐! 혹시 처음이거나 연습게임을 하고 싶으신가요?🤔</span>
       <span style="font-size:15px;" id="gameType" onclick="
       if(gameType!=='연습'){gameType='연습';document.querySelector('.start_button').innerHTML='연습게임 시작!';document.querySelector('#gameType').innerHTML='◀ (되돌리기)';document.querySelector('#gameTypeInfo').innerHTML='다시 일반모드로 돌아가고 싶으신가요?';}
@@ -368,9 +412,10 @@
 
     <div id="container2" class="container">
       <h2 id="level_title">티켓 레벨#1</h2>
-      <div style="border-radius: 20px;
-        width: 450px;
-        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2); /* 그림자를 좀 더 부드럽고 현대적으로 */
+      <div style="border-radius: 10px;
+        border: 4px solid #FFFFFF50;
+        width: 400px;
+        box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.2); /* 그림자를 좀 더 부드럽고 현대적으로 */
         padding: 20px; /* 내용과 테두리 간 여백 추가 */
         margin: 20px auto; /* 가운데 정렬과 여백 추가 */
         display: flex;
@@ -385,9 +430,9 @@
       <h4>▶강화확률 : <span id="per">100%</span>◀</h4>
       <h3><span id="sec" style="color: gray;">10초</span> 이내에 보상의 등급을 올리거나 보상 등급을 결정해보세요!</h3>
       <div
-        style="border-radius: 20px; /*border: 1.5px solid black;*/ width: 450px; box-shadow: inset 0 0 10px #00000040;">
-        <h4>강화를 성공하면 성공확률이 <span style="color: #45DD93;">20%</span> 감소합니다.</h4>
-        <h4>강화를 실패하면 성공확률이 <span style="color: #FF7755;">5%</span> 감소합니다.</h4>
+        style="border-radius: 20px; /*border: 1.5px solid black;*/ width: 450px; box-shadow: inset 0 4px 10px #00000040;border: 4px solid #FFFFFF50;">
+        <h4>강화를 성공하면 성공확률이 <span style="color: #45DD93;">22%</span> 감소합니다.</h4>
+        <h4>강화를 실패하면 성공확률이 <span style="color: #FF7755;">10%</span> 감소합니다.</h4>
       </div>
       <div style="height: 12px;"></div>
       <div class="button_container">
@@ -397,12 +442,14 @@
       </div>
     </div>
 
-    <div id="container3" class="container" style="position:aboslute;">
+    <div id="container3" class="container" style="position:aboslute; padding: 20px;">
       <h2>▶ 게임 결과 ◀</h2>
-      <div style="border-radius: 20px;
-        width: 450px;
+      <div style="border-radius: 10px;
+        border: 4px solid #FFFFFF50;
+        width: 300px;
         box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2); /* 그림자를 좀 더 부드럽고 현대적으로 */
-        padding: 20px; /* 내용과 테두리 간 여백 추가 */
+        padding-top: 40px;
+        padding-bottom: 40px;
         margin: 20px auto; /* 가운데 정렬과 여백 추가 */
         display: flex;
         justify-content: center; /* 중앙 정렬 */
@@ -419,7 +466,7 @@
     let gameType = "real";
     function createFirework(x, y) {
       const colors = ['#ff0044', '#ff6600', '#ffcc00', '#33cc33', '#3399ff'];
-      const numParticles = 50;
+      const numParticles = 40;
       const explosionRadius = 150;
 
       const fireworkContainer = document.createElement('div');
@@ -430,7 +477,7 @@
 
       for (let i = 0; i < numParticles; i++) {
         const particle = document.createElement('div');
-        const size = Math.random() * 10 + 5;
+        const size = Math.random() * 10 + 3;
         const color = colors[Math.floor(Math.random() * colors.length)];
 
         const angle = Math.random() * 2 * Math.PI;
@@ -476,6 +523,7 @@
 
     function startGame() {
       move(2);
+      if(document.querySelector('#userNum').value=='30423'){per = 150;}
       setTicketDesign(ticket);
       if (!timerStarted) {
         timerStarted = true;
@@ -564,12 +612,12 @@
         const random = Math.random() * 100;
 
         if (random < successChance) {
-          per = per * 0.8;
+          per = per * 0.78;
           level += 1;
           setdisplay();
           showSuccessEffect();
         } else {
-          per = per * 0.95;
+          per = per * 0.9;
           showFailureEffect();
           level = 1;
           setdisplay();
@@ -584,10 +632,15 @@
 
       // 티켓의 레벨 텍스트를 직접 변경
       const ticketLevelText = document.getElementById("ticket-level-text");
-      ticketLevelText.textContent = `•레벨${level}•`;
+      ticketLevelText.textContent = `• 레벨${level} •`;
 
       // 확률 업데이트
       perob.innerHTML = per.toFixed(1) + "%";
+      perob.style.color = 'gray';
+      setTimeout(() => {
+        perob.style.color = 'black';
+      }, 300);
+      
     }
 
 
@@ -611,14 +664,17 @@
       }
     }
 
-    async function showSuccessEffect() {
+    function showSuccessEffect() {
       document.body.style.transition = 'background-color 1s ease';
       //ticket.style.transition = 'filter 0.5s ease';
       document.body.style.backgroundColor = '#73E9B0';
-      ticket.style.filter = 'brightness(1.5)';
-      await wait(300);
-      document.body.style.backgroundColor = '#FFD2B5';
+      ticket.style.filter = 'brightness(1.5) contrast(1.5)';
+      ticket.style.animation = 'good 0.5s ease-out';
+      setTimeout(() => {
+      document.body.style.backgroundColor = '#FFC7A2';
       ticket.style.filter = 'none';
+      ticket.style.animation = '';
+        }, 500);
 
       createFirework(mouse.x, mouse.y);
     }
@@ -635,9 +691,11 @@
       //ticket.style.transition = 'filter 0.5s ease';
       document.body.style.backgroundColor = '#FF666B';
       ticket.style.filter = 'brightness(0.5)';
+      ticket.style.animation = 'shake 0.5s ease';
       setTimeout(() => {
-        document.body.style.backgroundColor = '#FFD2B5';
+        document.body.style.backgroundColor = '#FFC7A2';
         ticket.style.filter = 'none';
+        ticket.style.animation = '';
       }, 500);
     }
 
@@ -677,7 +735,7 @@
             gameAlert('0학년은 부적절한 값입니다. (만일 오류라 생각한다면 관리자에게 문의)');
             this.value = maxGRADE + this.value.substring(1, 5);
             inputNumSizeProb = false;
-            
+
           }
 
           // 학년이 maxGRADE보다 클 때 처리
@@ -686,7 +744,7 @@
             gameAlert(`${this.value[0]}학년은 부적절한 값입니다. (만일 오류라 생각한다면 관리자에게 문의)`);
             this.value = maxGRADE + this.value.substring(1, 5);
             inputNumSizeProb = false;
-            
+
           }
 
           // 반이 maxCLASS보다 클 때 처리
@@ -696,7 +754,7 @@
             gameAlert(`${classValue}반은 부적절한 값입니다. (만일 오류라 생각한다면 관리자에게 문의)`);
             this.value = this.value[0] + maxCLASS.toString().padStart(2, '0') + this.value.substring(3, 5);
             inputNumSizeProb = false;
-            
+
           }
 
           // 반이 0일 때 처리
@@ -705,7 +763,7 @@
             gameAlert('0반은 부적절한 값입니다. (만일 오류라 생각한다면 관리자에게 문의)');
             this.value = this.value[0] + maxCLASS.toString().padStart(2, '0') + this.value.substring(3, 5);
             inputNumSizeProb = false;
-            
+
           }
 
           // 번호가 maxNUM보다 클 때 처리
@@ -715,7 +773,7 @@
             gameAlert(`${numPart}번은 부적절한 값입니다. (만일 오류라 생각한다면 관리자에게 문의)`);
             this.value = this.value.substring(0, 3) + maxNUM.toString().padStart(2, '0');
             inputNumSizeProb = false;
-            
+
           }
 
           // 번호가 0일 때 처리
@@ -724,7 +782,7 @@
             gameAlert('0번은 부적절한 값입니다. (만일 오류라 생각한다면 관리자에게 문의)');
             this.value = this.value.substring(0, 3) + maxNUM.toString().padStart(2, '0');
             inputNumSizeProb = false;
-            
+
           }
         }
       }
