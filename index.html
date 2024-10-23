@@ -630,12 +630,14 @@
         if ((level !== 7 && random < (successChance-((level-1)*1.1))) || (level === 7 && random < (successChance - 20))) {
           per = per * 0.78;
           level += 1;
+          if(per<10 && level == 1){per=10}
           setdisplay();
           showSuccessEffect();
         } else {
           per = per * 0.9;
           showFailureEffect();
           level = 1;
+          if(per<10 && level == 1){per=10}
           setdisplay();
         }
         setTicketDesign(ticket);
