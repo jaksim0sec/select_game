@@ -631,7 +631,7 @@
         const successChance = per;
         const random = Math.random() * 100;
 
-        if ((level !== 7 && random < (successChance-((level-1)*0.8))) || (level === 7 && random < (successChance - 15))) {
+        if ((level !== 7 && random < (successChance-((level-1)*0.5))) || (level === 7 && random < (successChance - 15))) {
           per = per * 0.78;
           level += 1;
           if(per<10 && level == 1){per=10}
