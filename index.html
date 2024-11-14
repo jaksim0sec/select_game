@@ -482,9 +482,11 @@
       <h4>🎲 강화 확률: <span id="result_per" style="color: #FF7755;">100%</span></h4>
       <h4>🏆 최종 레벨: <span id="result_level" style="color: #FF7755;">레벨#1</span></h4>
       <h4>🚀 최고 레벨: <span id="result_maxlevel" style="color: #FF7755;">레벨#1</span></h4>
+      <h4>📜 보상 코드: <span id="result_code" style="color: #FF7755;">레벨#1</span></h4>
     </div>
   </div>
   <script>
+    
     let gameType = "real";
     function createFirework(x, y) {
       const colors = ['#ff0044', '#ff6600', '#ffcc00', '#33cc33', '#3399ff'];
@@ -542,6 +544,7 @@
     const resultPer = document.getElementById("result_per");
     const resultLevel = document.getElementById("result_level");
     const resultMaxlev = document.getElementById("result_maxlevel");
+    const resultCode = document.getElementById("result_code");
     let level = 1;
     let timerStarted = false;
 
@@ -682,6 +685,7 @@
       resultPer.innerHTML = per.toFixed(1) + "%";
       resultLevel.innerHTML = `레벨#${level}`;
       resultMaxlev.innerHTML = `레벨#${maxlev}`;
+      resultCode.innerHTML = `코드#${코드()}`;
       move(3);
 
       for (let i = 0; i < 5; i++) {
@@ -691,6 +695,29 @@
         await wait(200);
       }
     }
+
+    function 시간포멧() {
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+
+      return `${day}N${hours}M${minutes}O`;
+  }
+
+  function 숫자암호화(input) {
+      const map = { '1': 'A', '2': 'B', '3': 'C', '4': 'D', '5': 'E', '6': 'F', '7': 'G', '8': 'H', '9': 'I', '0': 'J' };
+
+      return input.replace(/[0-9]/g, match => map[match]);
+  }
+
+  function 코드() {
+      // 레벨이 숫자라고 가정하고, 숫자 암호화
+      let result = 'Y1'+숫자암호화(String(level));
+      result += '2';
+      result += 숫자암호화(시간포멧());
+      return result;
+  }
 
     function showSuccessEffect() {
       document.body.style.transition = 'background-color 1s ease';
