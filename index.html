@@ -486,6 +486,21 @@
       <h4>📜 보상 코드: <span id="result_code" style="color: #FF7755;">레벨#1</span></h4>
     </div>
   </div>
+  <style>
+      @keyframes loaderA{
+        0%{opacity:1}
+        100%{opacity:0}
+      }
+      #loader{
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        animation: loaderA 2s ease forwards;
+        position: absolute;
+        pointer-events: none;
+      }
+    </style>
+    <div id = 'loader'></div>
   <script>
     
     let gameType = "real";
