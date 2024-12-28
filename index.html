@@ -460,7 +460,7 @@
       <div class="button_container">
         <button class="action_button" onclick="decide();" id="decide_button"
           style="background: linear-gradient(150deg, #FF6F78, #F8B4B8);">결정!</button>
-        <button class="action_button" onclick="strengthen();" id="strengthen_button">강화!</button>
+        <button class="action_button" onclick="ST();" id="ST_button">강화!</button>
       </div>
     </div>
 
@@ -553,7 +553,7 @@
     let sec = 11;
     const secob = document.getElementById("sec");
     const decideButton = document.getElementById("decide_button");
-    const strengthenButton = document.getElementById("strengthen_button");
+    const STButton = document.getElementById("ST_button");
     const ticket = document.getElementById("ticket");
     const levelob = document.getElementById("level_title");
     const resultTicket = document.getElementById("result_ticket");
@@ -637,9 +637,9 @@
 
     function disableButtons() {
       decideButton.classList.add('disabled');
-      strengthenButton.classList.add('disabled');
+      STButton.classList.add('disabled');
       decideButton.disabled = true;
-      strengthenButton.disabled = true;
+      STButton.disabled = true;
     }
 
     function decide() {
@@ -650,12 +650,12 @@
       }
     }
 
-    function strengthen() {
+    function ST() {
       if (sec > 0) {
-        const successChance = per;
-        const random = Math.random() * 100;
+        const SCS = per;
+        const random = Math.round(Math.random() * 100);
 
-        if ((level !== 9 && random < (successChance-((level-1)*0.2))) || (level === 9 && random < (successChance - 15))) {
+        if ((level !== 9 && random < (SCS-((level-1)*0.2))) || (level === 9 && random < (SCS - 20))) {
           per = per * 0.80;
           level += 1;
           if(level>maxlev){maxlev=level};
